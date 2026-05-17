@@ -127,24 +127,7 @@ export default function Navbar() {
         </motion.a>
       </div>
 
-      {/* Floating Resume Action Button (Desktop Only) */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5 }}
-        className="fixed bottom-6 right-6 z-50 hidden sm:block"
-        suppressHydrationWarning
-      >
-        <a 
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-3 rounded-full bg-text-primary text-background border border-text-primary hover:bg-background hover:text-text-primary active:scale-95 transition-all duration-300 shadow-[0_12px_24px_rgba(0,0,0,0.2)] text-xs font-semibold uppercase tracking-wider cursor-none"
-        >
-          <FileText size={14} />
-          <span>Resume</span>
-        </a>
-      </motion.div>
+
     </>
   );
 }
