@@ -50,16 +50,6 @@ export default function Hero() {
       >
         {/* Left — Text */}
         <div className="flex-1">
-          {/* Mobile Avatar */}
-          <motion.div variants={item} className="block sm:hidden w-16 h-16 rounded-full overflow-hidden border border-border bg-surface mb-8">
-            <img 
-              src="/av/avatar_default.png" 
-              alt="Carlwyne Avatar" 
-              className="w-full h-full object-cover"
-              draggable={false}
-            />
-          </motion.div>
-
           <motion.h1 
             variants={item}
             className="text-[clamp(3.5rem,8vw,6.5rem)] font-light tracking-tighter leading-[1.05] mb-8"
