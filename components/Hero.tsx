@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const container = {
@@ -19,19 +20,46 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as any } },
 };
 
+const avatars = [
+  "/av/avatar_default.png",
+  "/av/avatar_wink.png",
+  "/av/avatar_shocked.png",
+  "/av/avatar_sad.png",
+];
 
 export default function Hero() {
+  const [avatarIdx, setAvatarIdx] = useState(0);
+
+  const handleMouseEnter = () => {
+    const randomIdx = Math.floor(Math.random() * (avatars.length - 1)) + 1;
+    setAvatarIdx(randomIdx);
+  };
+
+  const handleMouseLeave = () => {
+    setAvatarIdx(0);
+  };
+
   return (
     <section className="min-h-[75vh] md:min-h-screen flex items-start md:items-center justify-center pt-32 pb-12 md:py-0" suppressHydrationWarning>
       <motion.div 
         variants={container}
         initial="hidden"
         animate="show"
-        className="w-full max-w-[860px] px-6 flex flex-col md:flex-row items-start justify-between gap-12"
+        className="w-full max-w-[860px] px-6 flex flex-col md:flex-row items-center justify-between gap-12"
         suppressHydrationWarning
       >
         {/* Left — Text */}
         <div className="flex-1">
+          {/* Mobile Avatar */}
+          <motion.div variants={item} className="block sm:hidden w-16 h-16 rounded-full overflow-hidden border border-border bg-surface mb-8">
+            <img 
+              src="/av/avatar_default.png" 
+              alt="Carlwyne Avatar" 
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </motion.div>
+
           <motion.h1 
             variants={item}
             className="text-[clamp(3.5rem,8vw,6.5rem)] font-light tracking-tighter leading-[1.05] mb-8"
@@ -68,8 +96,30 @@ export default function Hero() {
           </motion.div>
         </div>
 
+        {/* Right — Interactive Avatar (Desktop Only) */}
+        <motion.div 
+          variants={item}
+          className="hidden md:block flex-shrink-0 w-[260px] h-[260px] relative rounded-full overflow-hidden border border-border bg-surface cursor-none group -translate-y-8 lg:-translate-y-12"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <AnimatePresence>
+            <motion.img 
+              key={avatarIdx}
+              src={avatars[avatarIdx]} 
+              alt="Carlwyne Avatar" 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/10 rounded-full pointer-events-none" />
+        </motion.div>
+
       </motion.div>
     </section>
   );
 }
-

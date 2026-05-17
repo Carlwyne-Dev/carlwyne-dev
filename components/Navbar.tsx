@@ -32,7 +32,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 cursor-default"
           >
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 bg-surface">
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-border bg-surface block sm:hidden">
               <img 
                 src="/av/avatar_default.png" 
                 alt="Carlwyne Avatar" 
