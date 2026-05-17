@@ -206,7 +206,7 @@ export default function Projects() {
   const filteredProjects = projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="py-24 flex justify-center" suppressHydrationWarning>
+    <section id="projects" className="py-16 md:py-24 flex justify-center" suppressHydrationWarning>
       <div className="w-full max-w-[860px] px-6" suppressHydrationWarning>
         <header className="mb-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <span className="text-[11px] uppercase tracking-[0.12em] text-text-muted font-medium">Projects</span>

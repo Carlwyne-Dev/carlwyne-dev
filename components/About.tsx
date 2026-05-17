@@ -11,13 +11,13 @@ const stats = [
 
 export default function About() {
   return (
-    <section id="about" className="py-32 flex justify-center" suppressHydrationWarning>
+    <section id="about" className="py-16 md:py-32 flex justify-center" suppressHydrationWarning>
       <div className="w-full max-w-[860px] px-6" suppressHydrationWarning>
         <header className="mb-12">
           <span className="text-[11px] uppercase tracking-[0.12em] text-text-muted font-bold">About</span>
         </header>
 
-        <div className="grid md:grid-cols-2 gap-20">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-20">
           <div className="space-y-6 text-text-secondary leading-[1.8] text-sm">
             <p>
               I am a <span className="text-text-primary font-medium">BS Information Technology</span> graduate from Central Philippine State University, graduating with the distinction of <span className="text-text-primary font-medium">Magna Cum Laude</span>. 

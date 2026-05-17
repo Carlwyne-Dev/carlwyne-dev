@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import AvatarMood from "@/components/AvatarMood";
 
 const container = {
   hidden: { opacity: 0 },
@@ -23,12 +22,12 @@ const item = {
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20" suppressHydrationWarning>
+    <section className="min-h-[75vh] md:min-h-screen flex items-start md:items-center justify-center pt-32 pb-12 md:py-0" suppressHydrationWarning>
       <motion.div 
         variants={container}
         initial="hidden"
         animate="show"
-        className="w-full max-w-[860px] px-6 flex items-start justify-between gap-12"
+        className="w-full max-w-[860px] px-6 flex flex-col md:flex-row items-start justify-between gap-12"
         suppressHydrationWarning
       >
         {/* Left — Text */}
@@ -43,7 +42,7 @@ export default function Hero() {
           <motion.div variants={item} className="mb-10">
             <h2 className="text-xl font-medium text-text-primary mb-4">Full-Stack Developer</h2>
             <p className="text-lg text-text-secondary max-w-xl leading-relaxed">
-              BS Information Technology graduate (<span className="text-text-primary font-medium">Magna Cum Laude</span>) and self-driven full-stack developer. Experienced in building production-ready web and mobile applications with a genuine commitment to building things that work.
+              Self-driven developer specializing in building production-ready web and mobile applications with a genuine commitment to engineering software that works.
             </p>
           </motion.div>
 
@@ -69,10 +68,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — Large Avatar */}
-        <motion.div variants={item} className="hidden md:flex flex-shrink-0">
-          <AvatarMood />
-        </motion.div>
       </motion.div>
     </section>
   );

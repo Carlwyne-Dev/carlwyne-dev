@@ -47,7 +47,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 flex justify-center bg-background" suppressHydrationWarning>
+    <section id="contact" className="py-16 md:py-32 flex justify-center bg-background" suppressHydrationWarning>
       <div className="w-full max-w-[860px] px-6" suppressHydrationWarning>
         <header className="mb-20">
           <span className="text-[11px] uppercase tracking-[0.12em] text-text-muted font-bold mb-6 block">Contact</span>

@@ -86,7 +86,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-32 flex justify-center" suppressHydrationWarning>
+    <section id="skills" className="py-16 md:py-32 flex justify-center" suppressHydrationWarning>
       <div className="w-full max-w-[860px] px-6" suppressHydrationWarning>
         <header className="mb-16">
           <span className="text-[11px] uppercase tracking-[0.2em] text-text-muted font-bold">Expertise</span>

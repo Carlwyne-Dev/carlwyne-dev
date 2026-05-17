@@ -47,6 +47,16 @@ a, button, [role="button"] {
     scroll-behavior: smooth;
   }
   
+  body, section, article, div, p, span, h1, h2, h3, a, button, svg {
+    transition-property: background-color, color, border-color, stroke, fill;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  #custom-cursor, #custom-cursor * {
+    transition: none !important;
+  }
+
   * {
     border-color: var(--border);
   }

@@ -30,6 +30,8 @@ export default function AvatarMood() {
       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.4 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchEnd={handleMouseLeave}
       className="relative w-64 h-64 rounded-full overflow-hidden bg-background border-2 border-black dark:border-white/20 flex-shrink-0 cursor-none select-none"
     >
       <AnimatePresence mode="wait">
