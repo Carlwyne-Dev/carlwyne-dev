@@ -43,7 +43,7 @@ export default function Hero() {
           <motion.div variants={item} className="mb-10">
             <h2 className="text-xl font-medium text-text-primary mb-4">Full-Stack Developer</h2>
             <p className="text-lg text-text-secondary max-w-xl leading-relaxed">
-              BS Information Technology graduate specialized in building production-ready web and mobile applications with a genuine commitment to building things that work.
+              BS Information Technology graduate (<span className="text-text-primary font-medium">Magna Cum Laude</span>) and self-driven full-stack developer. Experienced in building production-ready web and mobile applications with a genuine commitment to building things that work.
             </p>
           </motion.div>
 

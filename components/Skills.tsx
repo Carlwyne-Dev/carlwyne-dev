@@ -12,8 +12,9 @@ const INITIAL_SKILLS = [
       { name: "React.js", level: "Advanced" },
       { name: "TypeScript", level: "Advanced" },
       { name: "JavaScript", level: "Advanced" },
+      { name: "HTML5", level: "Advanced" },
+      { name: "CSS3", level: "Advanced" },
       { name: "Tailwind CSS", level: "Advanced" },
-      { name: "HTML5 / CSS3", level: "Advanced" },
       { name: "Vue.js", level: "Intermediate" },
     ]
   },
@@ -24,8 +25,7 @@ const INITIAL_SKILLS = [
     span: "md:col-span-2",
     skills: [
       { name: "React Native", level: "Intermediate" },
-      { name: "Cross-Platform", level: "Intermediate" },
-      { name: "Mobile UI Design", level: "Intermediate" },
+      { name: "Cross-Platform Mobile", level: "Intermediate" },
     ]
   },
   { 
@@ -37,8 +37,6 @@ const INITIAL_SKILLS = [
       { name: "Node.js", level: "Advanced" },
       { name: "Express.js", level: "Advanced" },
       { name: "REST API Design", level: "Advanced" },
-      { name: "Supabase", level: "Advanced" },
-      { name: "Firebase", level: "Intermediate" },
       { name: "PHP", level: "Intermediate" },
     ]
   },
@@ -48,10 +46,12 @@ const INITIAL_SKILLS = [
     icon: Database, 
     span: "md:col-span-3",
     skills: [
+      { name: "Supabase", level: "Advanced" },
+      { name: "Firebase", level: "Intermediate" },
       { name: "PostgreSQL", level: "Intermediate" },
-      { name: "Git / GitHub", level: "Advanced" },
-      { name: "VS Code", level: "Advanced" },
-      { name: "Antigravity", level: "Advanced" },
+      { name: "Git & GitHub", level: "Advanced" },
+      { name: "Google Antigravity IDE", level: "Advanced" },
+      { name: "VS Code", level: "Intermediate" },
       { name: "Postman", level: "Intermediate" },
       { name: "Google Stitch", level: "Intermediate" },
     ]

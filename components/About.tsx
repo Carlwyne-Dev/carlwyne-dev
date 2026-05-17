@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 const stats = [
   { label: "Academic Honor", value: "Magna Cum Laude" },
-  { label: "SSG Leadership", value: "3 Years" },
-  { label: "Projects Completed", value: "7+" },
-  { label: "Capstone", value: "Proposed Acquisition" },
+  { label: "Student Leadership", value: "3 Years SSG" },
+  { label: "Freelance System", value: "Solo Developer" },
+  { label: "Degree Distinction", value: "Dean's Lister" },
 ];
 
 export default function About() {
