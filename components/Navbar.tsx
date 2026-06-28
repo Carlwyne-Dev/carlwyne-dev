@@ -1,0 +1,221 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Moon, Sun, User, Code2, Briefcase, Mail, FileText } from "lucide-react";
+
+const navLinks = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+];
+
+export default function Navbar() {
+  const [isDark, setIsDark] = useState(true);
+  const [activeSection, setActiveSection] = useState("");
+  const [isResumeMenuOpen, setIsResumeMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
+  useEffect(() => {
+    if (!isResumeMenuOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsResumeMenuOpen(false);
+    };
+
+    const onPageHide = () => setIsResumeMenuOpen(false);
+    const onVisibilityChange = () => {
+      if (document.visibilityState !== "visible") setIsResumeMenuOpen(false);
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      // Close if the click is outside the resume menu / trigger.
+      if (target.closest("[data-resume-menu]")) return;
+      setIsResumeMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("pagehide", onPageHide);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pagehide", onPageHide);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [isResumeMenuOpen]);
+
+  return (
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center py-6" suppressHydrationWarning>
+        <div className="w-full max-w-[860px] px-6 flex justify-between items-center" suppressHydrationWarning>
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3 cursor-default"
+          >
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-border bg-surface block sm:hidden">
+              <img 
+                src="/av/avatar_default.png" 
+                alt="Carlwyne Avatar" 
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
+            <span className="text-xl font-medium tracking-tighter">CM</span>
+          </motion.div>
+
+          <div className="flex items-center gap-8">
+            <ul className="hidden sm:flex gap-6">
+              {navLinks.map((link) => (
+                <motion.li 
+                  key={link.name}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <a 
+                    href={link.href}
+                    className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 group"
+                  >
+                    {link.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-text-primary transition-all duration-300 group-hover:w-full" />
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="flex items-center gap-6">
+              {/* Desktop Theme Toggle */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileTap={{ scale: 0.85 }}
+                onClick={() => setIsDark(!isDark)}
+                className="p-2.5 rounded-full bg-surface border border-border text-text-primary hover:bg-background transition-colors cursor-none"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Floating Bottom Dock */}
+      <div 
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex sm:hidden items-center justify-between gap-6 px-6 py-3 rounded-full backdrop-blur-2xl border ${
+          isDark 
+            ? "bg-black/40 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]" 
+            : "bg-white/60 border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
+        }`} 
+        suppressHydrationWarning
+      >
+        {navLinks.map((link) => {
+          const Icon = link.name === "About" ? User :
+                       link.name === "Skills" ? Code2 :
+                       link.name === "Projects" ? Briefcase : Mail;
+          return (
+            <motion.a 
+              key={link.name}
+              href={link.href}
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className={`p-1.5 cursor-none transition-colors ${
+                isDark ? "text-white/60 hover:text-white" : "text-black/60 hover:text-black"
+              }`}
+              aria-label={link.name}
+              onClick={() => setIsResumeMenuOpen(false)}
+            >
+              <Icon size={20} strokeWidth={1.5} />
+            </motion.a>
+          );
+        })}
+
+        {/* Resume/CV Menu */}
+        <div className="relative" data-resume-menu>
+            <AnimatePresence>
+              {isResumeMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                  transition={{ duration: 0.18, ease: [0.2, 0, 0.2, 1] }}
+                  className={`absolute bottom-full right-0 mb-3 w-[180px] overflow-hidden rounded-2xl border backdrop-blur-2xl ${
+                    isDark ? "bg-black/60 border-white/10" : "bg-white/70 border-black/10"
+                  }`}
+                  role="menu"
+                  aria-label="CV and resume menu"
+                >
+                  <a
+                    href="/Carlwyne_Maghari_CV.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center justify-between px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-colors ${
+                      isDark ? "text-white/80 hover:text-white hover:bg-white/10" : "text-black/70 hover:text-black hover:bg-black/5"
+                    }`}
+                    role="menuitem"
+                    onClick={() => setIsResumeMenuOpen(false)}
+                  >
+                    <span className="flex items-center gap-2">
+                      <FileText size={16} strokeWidth={1.8} />
+                      CV
+                    </span>
+                    <span className={`${isDark ? "text-white/40" : "text-black/40"}`}>↗</span>
+                  </a>
+                  <div className={`${isDark ? "bg-white/10" : "bg-black/10"} h-px`} />
+                  <a
+                    href="/Carlwyne_Maghari_Resume_ATS.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center justify-between px-4 py-3 text-[11px] uppercase tracking-[0.2em] font-bold transition-colors ${
+                      isDark ? "text-white/80 hover:text-white hover:bg-white/10" : "text-black/70 hover:text-black hover:bg-black/5"
+                    }`}
+                    role="menuitem"
+                    onClick={() => setIsResumeMenuOpen(false)}
+                  >
+                    <span className="flex items-center gap-2">
+                      <FileText size={16} strokeWidth={1.8} />
+                      Resume
+                    </span>
+                    <span className={`${isDark ? "text-white/40" : "text-black/40"}`}>↗</span>
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className={`p-1.5 cursor-none transition-colors ${
+                isDark ? "text-white/60 hover:text-white" : "text-black/60 hover:text-black"
+              }`}
+              aria-label="Open CV / Resume"
+              aria-haspopup="menu"
+              aria-expanded={isResumeMenuOpen}
+              onClick={() => setIsResumeMenuOpen((v) => !v)}
+            >
+              <FileText size={20} strokeWidth={1.5} />
+            </motion.button>
+          </div>
+      </div>
+
+
+    </>
+  );
+}
