@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const stats = [
   { label: "Academic Honor", value: "Magna Cum Laude" },
-  { label: "AI & Automation", value: "Certified" },
+  { label: "Generative AI", value: "5+ Certifications" },
   { label: "Freelance System", value: "Solo Developer" },
   { label: "Degree Distinction", value: "Dean's Lister" },
 ];
