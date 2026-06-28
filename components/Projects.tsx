@@ -91,10 +91,9 @@ const projects: Project[] = [
   {
     name: "Tindadone",
     type: "Mobile Application",
-    year: "2026 (In Progress)",
+    year: "2026",
     desc: "Full POS mobile app designed for diverse retail stores (food, hardware, sari-sari) featuring stock management, credit tracking, and expense monitoring.",
-    link: null,
-    wip: true,
+    link: "https://tinda-done-web.vercel.app/",
     category: "actual",
     images: ["/pics/tindadone-1.jpg", "/pics/tindadone-2.jpg", "/pics/tindadone-3.jpg"],
   },
