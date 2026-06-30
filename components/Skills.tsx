@@ -1,64 +1,67 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Layout, Server, Smartphone, Database, Sparkles } from "lucide-react";
+import { Layout, Server, Database, Sparkles, Cpu, Wrench, Code2 } from "lucide-react";
 
 const INITIAL_SKILLS = [
   { 
     id: "frontend",
-    title: "Front-End", 
+    title: "Frontend", 
     icon: Layout, 
-    span: "md:col-span-4",
+    span: "md:col-span-3",
     skills: [
       { name: "React.js", level: "Advanced" },
-      { name: "TypeScript", level: "Advanced" },
+      { name: "Next.js", level: "Advanced" },
       { name: "JavaScript", level: "Advanced" },
+      { name: "TypeScript", level: "Advanced" },
       { name: "HTML5", level: "Advanced" },
       { name: "CSS3", level: "Advanced" },
       { name: "Tailwind CSS", level: "Advanced" },
-      { name: "Vue.js", level: "Intermediate" },
-    ]
-  },
-  { 
-    id: "mobile",
-    title: "Mobile", 
-    icon: Smartphone, 
-    span: "md:col-span-2",
-    skills: [
-      { name: "React Native", level: "Intermediate" },
-      { name: "Cross-Platform Mobile", level: "Intermediate" },
     ]
   },
   { 
     id: "backend",
-    title: "Back-End", 
+    title: "Backend & APIs", 
     icon: Server, 
     span: "md:col-span-3",
     skills: [
       { name: "Node.js", level: "Advanced" },
       { name: "Express.js", level: "Advanced" },
-      { name: "REST API Design", level: "Advanced" },
-      { name: "PHP", level: "Intermediate" },
+      { name: "REST APIs", level: "Advanced" },
+      { name: "Supabase", level: "Advanced" },
+      { name: "Firebase", level: "Intermediate" },
+      { name: "PostgreSQL", level: "Intermediate" },
+    ]
+  },
+  { 
+    id: "ai",
+    title: "Automation & AI", 
+    icon: Cpu, 
+    span: "md:col-span-3",
+    skills: [
+      { name: "n8n", level: "Advanced" },
+      { name: "Groq API", level: "Advanced" },
+      { name: "Claude API", level: "Advanced" },
+      { name: "Gemini", level: "Advanced" },
+      { name: "AI-assisted dev", level: "Advanced" },
     ]
   },
   { 
     id: "tools",
-    title: "Databases & Tools", 
-    icon: Database, 
+    title: "Tools", 
+    icon: Wrench, 
     span: "md:col-span-3",
     skills: [
-      { name: "Supabase", level: "Advanced" },
-      { name: "Firebase", level: "Intermediate" },
-      { name: "PostgreSQL", level: "Intermediate" },
       { name: "Git & GitHub", level: "Advanced" },
-      { name: "Google Antigravity IDE", level: "Advanced" },
-      { name: "VS Code", level: "Intermediate" },
+      { name: "Vercel", level: "Advanced" },
+      { name: "Netlify", level: "Intermediate" },
+      { name: "VS Code", level: "Advanced" },
       { name: "Postman", level: "Intermediate" },
-      { name: "Google Stitch", level: "Intermediate" },
+      { name: "Google Sheets", level: "Advanced" },
     ]
   },
 ];
 
-const currentlyLearning = ["Bootstrap", "Laravel", "MySQL", "Docker", "AWS", "Figma"];
+const familiarWith = ["Python", "PHP", "React Native", "Expo", "MySQL", "Docker", "AWS", "Laravel"];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -100,10 +103,10 @@ export default function Skills() {
           className="grid grid-cols-1 md:grid-cols-6 gap-4"
           suppressHydrationWarning
         >
-          {/* Front-End - Large Card (4 cols) */}
+          {/* Frontend - Medium Card (3 cols) */}
           <motion.div
             variants={itemVariants}
-            className="md:col-span-4 group relative p-8 rounded-3xl bg-background border border-white/10 overflow-hidden transition-all duration-500 hover:border-white"
+            className="md:col-span-3 group relative p-8 rounded-3xl bg-background border border-white/10 overflow-hidden transition-all duration-500 hover:border-white"
             suppressHydrationWarning
           >
             <div className="relative z-10" suppressHydrationWarning>
@@ -111,35 +114,11 @@ export default function Skills() {
                 <div className="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-text-primary group-hover:bg-text-primary group-hover:text-background transition-all duration-500">
                   <Layout size={20} strokeWidth={2} />
                 </div>
-                <h3 className="text-lg font-medium text-text-primary tracking-tight">Front-End</h3>
+                <h3 className="text-sm font-medium text-text-primary">Frontend</h3>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 {INITIAL_SKILLS[0].skills.map((skill) => (
-                  <span key={skill.name} className="px-4 py-2 rounded-xl bg-background border border-white/10 text-[12px] font-medium text-text-primary/70 hover:text-text-primary hover:border-white transition-all cursor-default">
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Mobile - Small Card (2 cols) */}
-          <motion.div
-            variants={itemVariants}
-            className="md:col-span-2 group p-8 rounded-3xl bg-background border border-white/10 transition-all duration-500 hover:border-white"
-            suppressHydrationWarning
-          >
-            <div className="flex flex-col h-full justify-between" suppressHydrationWarning>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-text-primary group-hover:bg-text-primary group-hover:text-background transition-all duration-500">
-                  <Smartphone size={20} strokeWidth={2} />
-                </div>
-                <h3 className="text-sm font-medium text-text-primary">Mobile</h3>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-auto" suppressHydrationWarning>
-                {INITIAL_SKILLS[1].skills.map((skill) => (
                   <span key={skill.name} className="px-3 py-1.5 rounded-lg bg-background border border-white/10 text-[11px] font-medium text-text-primary/50 hover:text-text-primary hover:border-white transition-all">
                     {skill.name}
                   </span>
@@ -148,7 +127,7 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          {/* Back-End - Medium Card (3 cols) */}
+          {/* Backend - Medium Card (3 cols) */}
           <motion.div
             variants={itemVariants}
             className="md:col-span-3 group p-8 rounded-3xl bg-background border border-white/10 transition-all duration-500 hover:border-white"
@@ -158,7 +137,29 @@ export default function Skills() {
               <div className="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-text-primary group-hover:bg-text-primary group-hover:text-background transition-all duration-500">
                 <Server size={20} strokeWidth={2} />
               </div>
-              <h3 className="text-sm font-medium text-text-primary">Back-End</h3>
+              <h3 className="text-sm font-medium text-text-primary">Backend & APIs</h3>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {INITIAL_SKILLS[1].skills.map((skill) => (
+                <span key={skill.name} className="px-3 py-1.5 rounded-lg bg-background border border-white/10 text-[11px] font-medium text-text-primary/50 hover:text-text-primary hover:border-white transition-all">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Automation & AI - Medium Card (3 cols) */}
+          <motion.div
+            variants={itemVariants}
+            className="md:col-span-3 group p-8 rounded-3xl bg-background border border-white/10 transition-all duration-500 hover:border-white"
+            suppressHydrationWarning
+          >
+            <div className="flex items-center gap-4 mb-8" suppressHydrationWarning>
+              <div className="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-text-primary group-hover:bg-text-primary group-hover:text-background transition-all duration-500">
+                <Cpu size={20} strokeWidth={2} />
+              </div>
+              <h3 className="text-sm font-medium text-text-primary">Automation & AI</h3>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -177,9 +178,9 @@ export default function Skills() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-text-primary group-hover:bg-text-primary group-hover:text-background transition-all duration-500">
-                <Database size={20} strokeWidth={2} />
+                <Wrench size={20} strokeWidth={2} />
               </div>
-              <h3 className="text-sm font-medium text-text-primary">Databases & Tools</h3>
+              <h3 className="text-sm font-medium text-text-primary">Tools</h3>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -203,13 +204,13 @@ export default function Skills() {
                   <Sparkles size={18} strokeWidth={2} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-text-primary">Currently Learning</h3>
-                  <p className="text-[11px] text-text-primary/50 mt-0.5 font-medium uppercase tracking-wider">Expanding skillset</p>
+                  <h3 className="text-sm font-semibold text-text-primary">Familiar With</h3>
+                  <p className="text-[11px] text-text-primary/50 mt-0.5 font-medium uppercase tracking-wider">Prior Experience</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-2 sm:justify-end">
-                {currentlyLearning.map((skill) => (
+                {familiarWith.map((skill) => (
                   <span key={skill} className="px-4 py-2 rounded-xl bg-background border border-white/10 text-[12px] font-medium text-text-primary/70 shadow-sm hover:border-white transition-all">
                     {skill}
                   </span>

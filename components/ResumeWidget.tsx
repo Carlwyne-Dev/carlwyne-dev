@@ -6,7 +6,7 @@ import { FileText, FileBadge } from "lucide-react";
 
 const docs = [
   { id: "cv", label: "CV", icon: FileBadge, href: "/Carlwyne_Maghari_CV.pdf" },
-  { id: "resume", label: "RESUME", icon: FileText, href: "/Carlwyne_Maghari_Resume_ATS.pdf" }
+  { id: "resume", label: "RESUME", icon: FileText, href: "/Carlwyne_Dev_Resume.pdf" }
 ];
 
 export default function ResumeWidget() {
