@@ -159,7 +159,7 @@ const FloatingCarousel = ({ images, mousePos }: { images: string[], mousePos: { 
         top: mousePos.y,
       }}
     >
-      <div className="relative flex items-center justify-center -translate-x-1/2 -translate-y-[220px] md:-translate-y-1/2 md:translate-x-[220px]">
+      <div className="relative flex items-center justify-center -translate-x-1/2 -translate-y-[160px] md:-translate-y-1/2 md:translate-x-[220px]">
         <AnimatePresence>
           {images.map((img, i) => {
             const offset = (i - activeIndex + images.length) % images.length;
