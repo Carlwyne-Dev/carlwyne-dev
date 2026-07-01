@@ -153,14 +153,13 @@ const FloatingCarousel = ({ images, mousePos }: { images: string[], mousePos: { 
 
   return (
     <motion.div
-      className="fixed pointer-events-none z-[100] hidden md:flex items-center justify-center"
+      className="fixed pointer-events-none z-[100] flex items-center justify-center"
       style={{
         left: mousePos.x,
         top: mousePos.y,
-        transform: "translate(220px, -50%)",
       }}
     >
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center -translate-x-1/2 -translate-y-[120%] md:-translate-y-1/2 md:translate-x-[220px]">
         <AnimatePresence>
           {images.map((img, i) => {
             const offset = (i - activeIndex + images.length) % images.length;
@@ -210,15 +209,37 @@ export default function Projects() {
   const [hoveredImages, setHoveredImages] = useState<string[] | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (images: string[] | undefined) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredImages(images || null);
-    }, 1000); // Wait 1 second before showing
+    }, 1000); 
   };
 
   const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
+    setHoveredImages(null);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent, images: string[] | undefined) => {
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    
+    // Capture the initial touch position
+    const touch = e.touches[0];
+    setMousePos({ x: touch.clientX, y: touch.clientY });
+
+    touchTimeoutRef.current = setTimeout(() => {
+      setHoveredImages(images || null);
+    }, 400); // 400ms long press for mobile
+  };
+
+  const handleTouchEnd = () => {
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     setHoveredImages(null);
   };
@@ -292,6 +313,14 @@ export default function Projects() {
                   className="group relative"
                   onMouseEnter={() => handleMouseEnter(project.images)}
                   onMouseLeave={handleMouseLeave}
+                  onTouchStart={(e) => handleTouchStart(e, project.images)}
+                  onTouchEnd={handleTouchEnd}
+                  onTouchMove={handleTouchEnd}
+                  onTouchCancel={handleTouchEnd}
+                  onContextMenu={(e) => {
+                    // Prevent context menu (save image/link) if they long press
+                    if (hoveredImages) e.preventDefault();
+                  }}
                 >
                   {project.link ? (
                     <a 

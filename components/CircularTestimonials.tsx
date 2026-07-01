@@ -186,7 +186,7 @@ export const CircularTestimonials = ({
         </div>
         
         <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left px-4 md:px-0 max-w-sm mx-auto md:max-w-none md:mx-0">
-          <div className="min-h-[220px]">
+          <div className="min-h-[150px] md:min-h-[220px]">
             <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
