@@ -40,7 +40,7 @@ const projects: Project[] = [
   {
     name: "MoodByte",
     type: "Web Application",
-    year: "2026",
+    year: "2025 - 2026",
     desc: "Productivity app combining a Pomodoro timer, task manager, mood tracker, and music player in a customizable themed environment.",
     link: "https://mood-byte-five.vercel.app",
     category: "actual",
