@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowUpRight, Hand } from "lucide-react";
 
 type Project = {
@@ -223,6 +223,9 @@ export default function Projects() {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { margin: "-10% 0px -20% 0px" });
+  
   const handleMouseEnter = (project: Project) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
@@ -267,7 +270,7 @@ export default function Projects() {
   const filteredProjects = projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="py-16 md:py-24 flex justify-center" suppressHydrationWarning>
+    <section ref={sectionRef} id="projects" className="py-16 md:py-24 flex justify-center" suppressHydrationWarning>
       <div className="w-full max-w-[860px] px-6" suppressHydrationWarning>
         <header className="mb-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <span className="text-[11px] uppercase tracking-[0.12em] text-text-muted font-medium">Projects</span>
@@ -305,11 +308,6 @@ export default function Projects() {
             </button>
           </div>
         </header>
-
-        <div className="md:hidden mb-8 flex items-center justify-center gap-2 text-[10px] uppercase tracking-wider text-text-muted/80 bg-surface/30 py-2 px-4 rounded-full w-fit mx-auto border border-border/50">
-          <Hand size={12} />
-          <span>Press and hold to preview</span>
-        </div>
 
         <div className="space-y-0 border-t border-border min-h-[400px]">
           <AnimatePresence mode="wait">
@@ -370,6 +368,21 @@ export default function Projects() {
       <AnimatePresence>
         {hoveredProject && (
           <FloatingCarousel project={hoveredProject} mousePos={mousePos} />
+        )}
+      </AnimatePresence>
+
+      {/* Floating Mobile Hint */}
+      <AnimatePresence>
+        {isInView && !hoveredProject && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            className="fixed bottom-[90px] left-1/2 -translate-x-1/2 z-40 md:hidden flex items-center justify-center gap-2 text-[10px] uppercase tracking-wider text-text-primary bg-surface/90 backdrop-blur-md py-2 px-4 rounded-full border border-border shadow-2xl pointer-events-none"
+          >
+            <Hand size={12} className="text-text-primary" />
+            <span className="font-medium whitespace-nowrap">Press & hold to preview</span>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
