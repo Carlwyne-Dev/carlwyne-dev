@@ -13,6 +13,7 @@ type Project = {
   category: "actual" | "side";
   images: string[];
   wip?: boolean;
+  orientation: "horizontal" | "vertical";
 };
 
 const projects: Project[] = [
@@ -24,6 +25,7 @@ const projects: Project[] = [
     link: null,
     category: "actual",
     images: ["/pr/water.jpg"],
+    orientation: "horizontal",
   },
   {
     name: "NORTH",
@@ -33,6 +35,7 @@ const projects: Project[] = [
     link: "https://north-wana.vercel.app/",
     category: "actual",
     images: ["/pics/north-1.png", "/pics/north-2.png", "/pics/north-3.png"],
+    orientation: "horizontal",
   },
   {
     name: "MoodByte",
@@ -42,6 +45,7 @@ const projects: Project[] = [
     link: "https://mood-byte-five.vercel.app",
     category: "actual",
     images: ["/pics/moodbyte-1.png", "/pics/moodbyte-2.png", "/pics/moodbyte-3.png"],
+    orientation: "horizontal",
   },
   {
     name: "Alter",
@@ -51,6 +55,7 @@ const projects: Project[] = [
     link: "https://alter-crm.vercel.app/",
     category: "side",
     images: ["/pics/alter-1.png", "/pics/alter-2.png", "/pics/alter-3.png"],
+    orientation: "horizontal",
   },
   {
     name: "DRIFT",
@@ -60,6 +65,7 @@ const projects: Project[] = [
     link: "https://drift-v1.vercel.app/",
     category: "side",
     images: ["/pics/drift-1.png", "/pics/drift-2.png", "/pics/drift-3.png"],
+    orientation: "horizontal",
   },
   {
     name: "Dreamly",
@@ -69,6 +75,7 @@ const projects: Project[] = [
     link: null,
     category: "side",
     images: ["/pics/dreamly-1.jpg", "/pics/dreamly-2.jpg", "/pics/dreamly-3.jpg"],
+    orientation: "vertical",
   },
   {
     name: "Viper",
@@ -78,6 +85,7 @@ const projects: Project[] = [
     link: "https://github.com/Carlwyne-Dev/viper",
     category: "actual",
     images: ["/pics/viper-1.png", "/pics/viper-2.png", "/pics/viper-3.png"],
+    orientation: "horizontal",
   },
   {
     name: "After Midnight",
@@ -87,6 +95,7 @@ const projects: Project[] = [
     link: "https://after-midnight-crm.vercel.app/",
     category: "side",
     images: ["/pr/after-midnight.jpg"],
+    orientation: "vertical",
   },
   {
     name: "Tindadone",
@@ -96,6 +105,7 @@ const projects: Project[] = [
     link: "https://tinda-done-web.vercel.app/",
     category: "actual",
     images: ["/pics/tindadone-1.jpg", "/pics/tindadone-2.jpg", "/pics/tindadone-3.jpg"],
+    orientation: "vertical",
   },
 ];
 
@@ -138,8 +148,10 @@ const ProjectContent = ({ project }: { project: Project }) => (
   </>
 );
 
-const FloatingCarousel = ({ images, mousePos }: { images: string[], mousePos: { x: number, y: number } }) => {
+const FloatingCarousel = ({ project, mousePos }: { project: Project, mousePos: { x: number, y: number } }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const images = project.images;
+  const isVertical = project.orientation === "vertical";
   
   useEffect(() => {
     if (!images || images.length <= 1) return;
@@ -159,7 +171,7 @@ const FloatingCarousel = ({ images, mousePos }: { images: string[], mousePos: { 
         top: mousePos.y,
       }}
     >
-      <div className="relative flex items-center justify-center -translate-x-1/2 -translate-y-[160px] md:-translate-y-1/2 md:translate-x-[220px]">
+      <div className={`relative flex items-center justify-center -translate-x-1/2 md:-translate-y-1/2 md:translate-x-[220px] ${isVertical ? '-translate-y-[240px]' : '-translate-y-[140px]'}`}>
         <AnimatePresence>
           {images.map((img, i) => {
             const offset = (i - activeIndex + images.length) % images.length;
@@ -206,26 +218,26 @@ const FloatingCarousel = ({ images, mousePos }: { images: string[], mousePos: { 
 
 export default function Projects() {
   const [filter, setFilter] = useState<"actual" | "side">("actual");
-  const [hoveredImages, setHoveredImages] = useState<string[] | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const touchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleMouseEnter = (images: string[] | undefined) => {
+  const handleMouseEnter = (project: Project) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
-      setHoveredImages(images || null);
+      setHoveredProject(project);
     }, 1000); 
   };
 
   const handleMouseLeave = () => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
-    setHoveredImages(null);
+    setHoveredProject(null);
   };
 
-  const handleTouchStart = (e: React.TouchEvent, images: string[] | undefined) => {
+  const handleTouchStart = (e: React.TouchEvent, project: Project) => {
     if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     
@@ -234,14 +246,14 @@ export default function Projects() {
     setMousePos({ x: touch.clientX, y: touch.clientY });
 
     touchTimeoutRef.current = setTimeout(() => {
-      setHoveredImages(images || null);
+      setHoveredProject(project);
     }, 400); // 400ms long press for mobile
   };
 
   const handleTouchEnd = () => {
     if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-    setHoveredImages(null);
+    setHoveredProject(null);
   };
 
   useEffect(() => {
@@ -311,15 +323,15 @@ export default function Projects() {
                   transition={{ delay: i * 0.05 }}
                   viewport={{ once: true }}
                   className="group relative"
-                  onMouseEnter={() => handleMouseEnter(project.images)}
+                  onMouseEnter={() => handleMouseEnter(project)}
                   onMouseLeave={handleMouseLeave}
-                  onTouchStart={(e) => handleTouchStart(e, project.images)}
+                  onTouchStart={(e) => handleTouchStart(e, project)}
                   onTouchEnd={handleTouchEnd}
                   onTouchMove={handleTouchEnd}
                   onTouchCancel={handleTouchEnd}
                   onContextMenu={(e) => {
                     // Prevent context menu (save image/link) if they long press
-                    if (hoveredImages) e.preventDefault();
+                    if (hoveredProject) e.preventDefault();
                   }}
                 >
                   {project.link ? (
@@ -351,8 +363,8 @@ export default function Projects() {
 
       {/* Floating Image Reveal Carousel */}
       <AnimatePresence>
-        {hoveredImages && hoveredImages.length > 0 && (
-          <FloatingCarousel images={hoveredImages} mousePos={mousePos} />
+        {hoveredProject && (
+          <FloatingCarousel project={hoveredProject} mousePos={mousePos} />
         )}
       </AnimatePresence>
     </section>
