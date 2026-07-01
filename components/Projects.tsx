@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Hand } from "lucide-react";
 
 type Project = {
   name: string;
@@ -305,6 +305,11 @@ export default function Projects() {
             </button>
           </div>
         </header>
+
+        <div className="md:hidden mb-8 flex items-center justify-center gap-2 text-[10px] uppercase tracking-wider text-text-muted/80 bg-surface/30 py-2 px-4 rounded-full w-fit mx-auto border border-border/50">
+          <Hand size={12} />
+          <span>Press and hold to preview</span>
+        </div>
 
         <div className="space-y-0 border-t border-border min-h-[400px]">
           <AnimatePresence mode="wait">
